@@ -2,12 +2,13 @@ const express = require("express");
 
 const router = require("../routes/users");
 
-const logger = require("./middlewares/logger")
-
-const timing = require("./middlewares/timing")
+const { timing } = require("./middlewares/timing");
 
 // Instance of the express for configuration
 const app = express();
+
+// Configure the app instance for using JSON body data - parsing JSON payloads
+app.use(express.json());
 
 // How to use a middleware
 // instace.verb(routePath, middleware, middleware, middleware, middleware,....., finalMiddleware)
@@ -63,6 +64,6 @@ app.post("/", timing, (req, res)=> {
     });
 });
 
-app.use('/users', logger, router);
+app.use('/users', router);
 
 module.exports = { app }
